@@ -21,7 +21,7 @@ A simple Bash script to display your public IPv4 address, country flag, and VPN 
 
 ## Installation
 1. Copy the script:
-mkdir -p ~/bin
-curl -s https://raw.githubusercontent.com/YOUR_USERNAME/xfce-ip-monitor/main/ip-vpn-status.sh -o ~/bin/ip-vpn-status.sh
-chmod +x ~/bin/ip-vpn-status.sh
-text
+`‍mkdir -p ~/bin`
+`curl -s https://raw.githubusercontent.com/YOUR_USERNAME/xfce-ip-monitor/main/ip-vpn-status.sh -o ~/bin/ip-vpn-status.sh`
+`chmod +x ~/bin/ip-vpn-status.sh`
+
