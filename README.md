@@ -1,50 +1,37 @@
-# IP & VPN Status Panel Script
+# IP & VPN Status Monitor
 
-A lightweight Bash script to display **public IP**, **country flag**, and **VPN status** in desktop panels (KDE Plasma, XFCE, etc.) using the `Command Output` widget.
+> **Real-time public IP + country flag + VPN status** for KDE/XFCE panels  
+> *Lightweight • No output when offline • Always accurate*
+
+![Shell Script](https://img.shields.io/badge/script-bash-orange) ![Panel](https://img.shields.io/badge/panel-KDE%20%7C%20XFCE-blue) ![Status](https://img.shields.io/badge/status-online-brightgreen)
+
+---
 
 ## Features
-- Shows public IPv4 address with country flag emoji
-- Indicates VPN connection status (tun0 interface)
-- **No output when offline** — completely blank if internet is down
-- Fast & minimal — uses `curl`, `jq`, and `ip` commands
-- Perfect for KDE Plasma `Command Output` widget
 
-## Output Examples
-VPN: 🇺🇸 123.45.67.89     → Connected to US server
-VPN: 🇮🇷 85.9.12.34       → Connected to Iran (no VPN)
-(Blank)                   → No internet
+| Feature | Description |
+|--------|-------------|
+| **Public IPv4** | Fetched via `ifconfig.co/json` |
+| **Country Flag** | Emoji based on `country_iso` |
+| **VPN Status** | Checks `tun0` interface (configurable) |
+| **Offline Safe** | **Blank output** when no internet |
+| **Fast & Minimal** | Uses only `curl`, `jq`, `ip` |
+
+### Output Examples
+VPN: US 123.45.67.89     → Connected via US server
+VPN: IR 85.9.12.34       → Local connection (no VPN)
+(blank)                  → No internet
+text
+---
+
 ## Requirements
-- `curl`
-- `jq`
-- `ip` (from `iproute2`)
-- Nerd Fonts recommended for icons (optional)
 
 ```bash
+# Arch Linux / Manjaro
 sudo pacman -S curl jq iproute2
-# Optional: for icons
+
+# Optional: for flag & lock icons
 sudo pacman -S ttf-nerd-fonts-symbols-common
+
 Installation
-curl -L -o ~/ip-vpn-status.sh https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/ip-vpn-status.sh
-chmod +x ~/ip-vpn-status.sh
-KDE Plasma Setup
-
-Right-click panel → Enter Edit Mode
-Add Widgets → Search: Command Output
-Drag to panel
-Configure:
-
-Command: /home/$USER/ip-vpn-status.sh
-Interval: 10 seconds
-
-
-Position next to Wi-Fi icon
-
-Customization
-
-Change tun0 to your VPN interface (e.g., wg0)
-Add more country flags in the case block
-Click-to-toggle VPN (add nmcli or wg-quick commands)
-
-
-Simple. Clean. Always up-to-date.
-text
+bash
