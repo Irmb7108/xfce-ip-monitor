@@ -35,3 +35,30 @@ sudo pacman -S ttf-nerd-fonts-symbols-common
 
 Installation
 bash
+‍‍‍```curl -L -o ~/ip-vpn-status.sh https://raw.githubusercontent.com/Irmb7108/xfce-ip-monitor/main/ip-vpn-status.sh
+chmod +x ~/ip-vpn-status.sh```
+KDE Plasma Setup
+
+Right-click panel → Enter Edit Mode
+Add Widgets → Search: Command Output
+Drag to panel
+Configure:
+```Command: /home/$USER/ip-vpn-status.sh
+Interval: 10 seconds```
+Place next to Wi-Fi icon
+
+
+XFCE Panel Setup
+
+Add New Item → Generic Monitor
+Command:
+```/home/$USER/ip-vpn-status.sh```
+Update interval: 10 seconds
+Font: JetBrains Mono Nerd Font (recommended)
+
+
+Customization
+Change VPN Interface
+# Line ~35: change tun0 → wg0
+if ip link show wg0 >/dev/null 2>&1 && ...
+
