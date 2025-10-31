@@ -1,28 +1,42 @@
-# XFCE IP Monitor Script
+#!/bin/bash
 
-A simple Bash script to display your public IPv4 address, country flag, and VPN status in the XFCE panel. Perfect for Kali Linux users!
+# JSON کامل بگیر (IPv4 اجباری)
+JSON=$(curl -4 -s ifconfig.co/json 2>/dev/null)
 
-## Features
-- Shows public IP (IPv4 only) from ifconfig.co
-- Displays country flag emoji (supports all countries via ISO codes)
-- VPN status indicator (🔒 for connected, e.g., OpenVPN tun0)
-- Offline detection: Shows "🌐 offline" if no internet
-- Updates every 30 seconds in XFCE Generic Monitor
+# چک کن اگر JSON خالی یا ip وجود نداره (نت قطع) → هیچی نمایش نده
+if [ -z "$JSON" ] || ! echo "$JSON" | jq -e '.ip' >/dev/null 2>&1; then
+    echo ""          # ← فقط این خط جایگزین " offline" شد
+    exit 0
+fi
 
-## Demo
-- With VPN: 🌐 64.31.27.55 - 🇺🇸 🔒
-- Without VPN: 🌐 85.10.5.20 - 🇮🇷
-- Offline: 🌐 offline
+# IP و کد کشور با jq
+IP=$(echo "$JSON" | jq -r '.ip')
+COUNTRY=$(echo "$JSON" | jq -r '.country_iso')
 
-## Requirements
-- Kali Linux (or any Debian-based with XFCE)
-- `jq` and `curl` (install: `sudo apt install jq curl`)
-- OpenVPN (for tun0 interface; change if using WireGuard wg0)
+# emoji پرچم بر اساس کد کشور (رایج‌ها)
+case $COUNTRY in
+    "IR") FLAG="🇮🇷" ;;
+    "US") FLAG="🇺🇸" ;;
+    "GB") FLAG="🇬🇧" ;;
+    "FR") FLAG="🇫🇷" ;;
+    "DE") FLAG="🇩🇪" ;;
+    "CN") FLAG="🇨🇳" ;;
+    "RU") FLAG="🇷🇺" ;;
+    "BR") FLAG="🇧🇷" ;;
+    "CA") FLAG="🇨🇦" ;;
+    "AU") FLAG="🇦🇺" ;;
+    "JP") FLAG="🇯🇵" ;;
+    "IN") FLAG="🇮🇳" ;;
+    "KR") FLAG="🇰🇷" ;;
+    *) FLAG="🌍" ;;
+esac
 
-## Installation
-1. Copy the script:
-`‍mkdir -p ~/bin`
-`curl -s https://raw.githubusercontent.com/YOUR_USERNAME/xfce-ip-monitor/main/ip-vpn-status.sh -o ~/bin/ip-vpn-status.sh`
-`chmod +x ~/bin/ip-vpn-status.sh`
+# چک status VPN
+if ip link show tun0 >/dev/null 2>&1 && ip link show tun0 | grep -q "state UP"; then
+    STATUS=" 🔒"
+else
+    STATUS=""
+fi
 
-![Screenshot 1](/home/ir-mb/Pictures/IMG_20251029_174943.jpg)
+# خروجی :  64.31.27.55 - 🇺🇸 🔒
+echo "🔐 ${FLAG}${STATUS} ${IP} "
