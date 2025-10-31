@@ -6,7 +6,7 @@
 ![Shell Script](https://img.shields.io/badge/script-bash-orange) ![Panel](https://img.shields.io/badge/panel-KDE%20%7C%20XFCE-blue) ![Status](https://img.shields.io/badge/status-online-brightgreen)
 
 ---
-
+![Preview](https://raw.githubusercontent.com/Irmb7108/xfce-ip-monitor/main/IMG_20251029_174943.jpg)
 ## Features
 
 | Feature | Description |
@@ -61,5 +61,4 @@ Customization
 Change VPN Interface
 # Line ~35: change tun0 → wg0
 if ip link show wg0 >/dev/null 2>&1 && ...
-![Preview]([https://github.com/Irmb7108/xfce-ip-monitor/raw/main/screenshot.png](https://github.com/Irmb7108/xfce-ip-monitor/blob/main/IMG_20251029_174943.jpg))
 
