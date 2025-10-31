@@ -61,4 +61,4 @@ Customization
 Change VPN Interface
 # Line ~35: change tun0 → wg0
 if ip link show wg0 >/dev/null 2>&1 && ...
-
+![Preview](https://github.com/Irmb7108/xfce-ip-monitor/raw/main/screenshot.png)
